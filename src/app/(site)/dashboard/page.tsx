@@ -1,16 +1,20 @@
 import DashboardNav from "@/app/components/DashboardNav";
 import ProfileForm from "@/app/components/ProfileForm";
-import {session} from "@/libs/session";
-import {ProfileModel} from "@/models/Profile";
+import { session } from "@/libs/session";
+import { ProfileModel } from "@/models/Profile";
 import mongoose from "mongoose";
 
 export default async function DashboardPage() {
-  const email = await session().get('email');
+  const email = await session().get("email");
   await mongoose.connect(process.env.MONGODB_URI as string);
-  const profileDoc = await ProfileModel.findOne({email});
+  const profileDoc = await ProfileModel.findOne({ email });
   return (
     <div>
-      <ProfileForm existingUsername={profileDoc?.username || ''} />
+      <ProfileForm
+        existingFirstName={profileDoc?.firstname || ""}
+        existingLastname={profileDoc?.lastname || ""}
+        existingUsername={profileDoc?.username || ""}
+      />
     </div>
   );
 }
