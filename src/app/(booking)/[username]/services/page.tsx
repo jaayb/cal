@@ -25,23 +25,25 @@ export default async function BookingPage(props: PageProps) {
   const profile = await ProfileModel.findOne({
     username: new RegExp(`^${props.params.username}$`, "i"),
   });
-
-  if (!profile) {
-    return "404";
-  }
+  console.log("🚀🚀🚀 profile", profile);
+  // if (!profile) {
+  //   return "404";
+  // }
 
   const eventTypes = await EventTypeModel.find({
     email: profile.email,
   });
 
-  console.log("🚀🚀🚀 etDoc", eventTypes);
-  if (!eventTypes) {
-    return "404";
-  }
+  console.log("🚀🚀🚀 eventTypes", eventTypes);
+
+  // if (!eventTypes) {
+  //   return "404";
+  // }
+
   return (
     <div>
       {eventTypes.map((et) => (
-        <div key={et.id} className="block p-2 border-b">
+        <div key={et.id} className="block p-2">
           <Card className={cn("w-[380px]")}>
             <CardHeader>
               <CardTitle>Service: {et.title}</CardTitle>
@@ -49,16 +51,7 @@ export default async function BookingPage(props: PageProps) {
             </CardHeader>
             <CardContent>
               <p>
-                <Link
-                  href={
-                    "http://" +
-                    process.env.NEXT_PUBLIC_URL +
-                    "/" +
-                    profile.username +
-                    "/" +
-                    et.uri
-                  }
-                >
+                <Link href={"/" + profile.username + "/" + et.uri}>
                   Book Appointment
                 </Link>
               </p>

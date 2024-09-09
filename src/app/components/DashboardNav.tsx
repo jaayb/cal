@@ -7,11 +7,12 @@ export default function DashboardNav({ username }: { username?: string }) {
   const pathname = usePathname();
   const isEventTypesPage = pathname.includes("event-types");
   const isBookedEventsPage = pathname.includes("booked-events");
+  const isServicesPage = pathname.includes("services");
   return (
     <div className="flex gap-4 justify-center">
       <Link
         className={clsx(
-          "rounded-full px-4 py-2",
+          "rounded-md px-4 py-2",
           pathname === "/dashboard" ? "bg-blue-600 text-white" : "bg-gray-200"
         )}
         href={"/dashboard"}
@@ -22,7 +23,7 @@ export default function DashboardNav({ username }: { username?: string }) {
         <>
           <Link
             className={clsx(
-              "rounded-full px-4 py-2",
+              "rounded-md px-4 py-2",
               isBookedEventsPage ? "bg-blue-600 text-white" : "bg-gray-200"
             )}
             href={"/dashboard/booked-events"}
@@ -31,12 +32,21 @@ export default function DashboardNav({ username }: { username?: string }) {
           </Link>
           <Link
             className={clsx(
-              "rounded-full px-4 py-2",
+              "rounded-md px-4 py-2",
               isEventTypesPage ? "bg-blue-600 text-white" : "bg-gray-200"
             )}
             href={"/dashboard/event-types"}
           >
             Event types
+          </Link>
+          <Link
+            className={clsx(
+              "rounded-md px-4 py-2",
+              isServicesPage ? "bg-blue-600 text-white" : "bg-gray-200"
+            )}
+            href={"/" + username + "/services"}
+          >
+            Services
           </Link>
         </>
       )}
